@@ -1,6 +1,6 @@
 Rotas
 
-- Criar todo - Post /todo
+- Criar todo - Post /todo - Concluido
 - Ver todos os todo - GET /todos
 - Ver 1 todo pelo id - GET /todo/id
 - Ver todos pelo que esta escrito - GET /todo/text
