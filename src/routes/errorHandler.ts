@@ -37,4 +37,10 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
       },
     });
   }
+
+  //Tratamento erro type Erro
+
+  if (err instanceof Error) {
+    res.status(404).json({ success: false, error: err.message });
+  }
 };
