@@ -3,6 +3,6 @@ Rotas
 - Criar todo - Post /todo - Concluido
 - Ver todos os todo - GET /todos - concluido
 - Ver 1 todo pelo id - GET /todo/id - concluido
-- Ver todos pelo que esta escrito - GET /todo/text
-- Alterar todo - PUT /todo/id
-- Deletar todo = DELETE /todo/id
+- Ver todos pelo que esta escrito no titulo - GET /todo/text
+- Alterar todo - PUT /todo/id - concluido
+- Deletar todo = DELETE /todo/id - concluido

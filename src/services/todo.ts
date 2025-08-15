@@ -38,11 +38,12 @@ export const GetTodoById = (id: number) => {
   return result;
 };
 
-export const updateTodo = (id: number, data: Prisma.TodoUpdateInput) => {
-  const result = db.todo.update({
+export const updateTodo = async (id: number, data: Prisma.TodoUpdateInput) => {
+  const result = await db.todo.update({
     where: { id: id },
     data: data,
   });
+  return result;
 };
 
 //Delete Todo

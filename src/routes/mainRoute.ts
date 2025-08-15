@@ -6,9 +6,14 @@ import {
   DeleteById,
   GetTodoById,
   GetTodos,
+  updateTodo,
 } from "../services/todo";
-import { error } from "console";
-import { success } from "zod";
+import {
+  AlterTodoschema,
+  type AlterTodoType,
+} from "../types/todoTypes/alterTodoType";
+import { IdSchema } from "../types/IdType/Idtype";
+import { toPrismaUpdateInput } from "../helpers/ConvertTypesToPrisma/convertUpdateTypetoPrisma";
 
 const router = express.Router();
 
@@ -52,13 +57,10 @@ router.get("/todos", async (req, res, next) => {
 router.get("/todo/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const numId = Number(id);
+    const numid = IdSchema.parse(parseInt(id));
+    const data = await GetTodoById(numid);
 
-    if (!Number.isInteger(numId)) {
-      throw new Error("Value is not a valid Value");
-    }
-
-    const data = await GetTodoById(parseInt(id));
+    console.log(numid);
 
     if (!data) {
       res.status(404).json({ error: "Data not found" });
@@ -72,9 +74,16 @@ router.get("/todo/:id", async (req, res, next) => {
 
 router.put("/todo/:id", async (req, res, next) => {
   try {
-    const data = req.body;
+    const { id } = req.params;
+    const data: AlterTodoType = req.body;
+    const numid = IdSchema.parse(parseInt(id));
+    //Verifica com o zod se os dados recebidos são iguais ao do schema do zod
+    const dataobject = AlterTodoschema.parse(data);
 
-    res;
+    //converte os dado que foram verificados pelo zod para o tipo do Prisma
+    const prismaData = toPrismaUpdateInput(dataobject);
+
+    const result = await updateTodo(numid, prismaData);
 
     res.json({ success: true, result: data });
   } catch (err) {
